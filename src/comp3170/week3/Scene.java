@@ -18,6 +18,7 @@ import comp3170.Shader;
 import comp3170.ShaderLibrary;
 
 public class Scene {
+	private static final float TAU = (float) Math.PI * 2;
 
 	final private String VERTEX_SHADER = "vertex.glsl";
 	final private String FRAGMENT_SHADER = "fragment.glsl";
@@ -32,8 +33,6 @@ public class Scene {
 	private Shader shader;
 	
 	private Matrix4f modelMatrix = new Matrix4f();
-	
-	private float rotation = (float)Math.toRadians(-90);
 
 	public Scene() {
 
@@ -83,10 +82,15 @@ public class Scene {
 		indexBuffer = GLBuffers.createIndexBuffer(indices);
 		
 //		Rotate the shape
-//		rotationMatrix(rotation, modelMatrix);
+//		rotationMatrix((float)Math.toRadians(TAU/4), modelMatrix);
 		
-		translationMatrix(0.5f, -0.5f, modelMatrix);
-		scaleMatrix(0.5f, 0.5f, modelMatrix);
+		
+//		translationMatrix(0.5f, -0.5f, modelMatrix);
+//		scaleMatrix(0.5f, 0.5f, modelMatrix);
+		
+		translationMatrix(-0.7f, 0.7f, modelMatrix);
+		rotationMatrix(TAU/20, modelMatrix);
+		scaleMatrix(0.3f, 0.3f, modelMatrix);
 		
 	}
 
