@@ -30,6 +30,12 @@ public class Scene {
 	private int colourBuffer;
 
 	private Shader shader;
+	
+	private Matrix4f modelMatrix = new Matrix4f();
+	private Matrix4f rotMatrix = new Matrix4f();
+	private Matrix4f transMatrix = new Matrix4f();
+	
+	private float rotation = (float)Math.toRadians(-90);
 
 	public Scene() {
 
@@ -77,7 +83,9 @@ public class Scene {
 			// @formatter:on
 
 		indexBuffer = GLBuffers.createIndexBuffer(indices);
-
+		
+		rotationMatrix(rotation, modelMatrix);
+		
 	}
 
 	public void draw() {
@@ -86,6 +94,9 @@ public class Scene {
 		// set the attributes
 		shader.setAttribute("a_position", vertexBuffer);
 		shader.setAttribute("a_colour", colourBuffer);
+		
+		// set the model uniform
+		shader.setUniform("u_modelMatrix", modelMatrix);
 
 		// draw using index buffer
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
