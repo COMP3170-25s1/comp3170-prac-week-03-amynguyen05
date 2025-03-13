@@ -32,8 +32,6 @@ public class Scene {
 	private Shader shader;
 	
 	private Matrix4f modelMatrix = new Matrix4f();
-	private Matrix4f rotMatrix = new Matrix4f();
-	private Matrix4f transMatrix = new Matrix4f();
 	
 	private float rotation = (float)Math.toRadians(-90);
 
@@ -84,7 +82,11 @@ public class Scene {
 
 		indexBuffer = GLBuffers.createIndexBuffer(indices);
 		
-		rotationMatrix(rotation, modelMatrix);
+//		Rotate the shape
+//		rotationMatrix(rotation, modelMatrix);
+		
+		translationMatrix(0.5f, -0.5f, modelMatrix);
+		scaleMatrix(0.5f, 0.5f, modelMatrix);
 		
 	}
 
@@ -144,9 +146,6 @@ public class Scene {
 	 */
 
 	public static Matrix4f rotationMatrix(float angle, Matrix4f dest) {
-		// clear matrix to the identity matrix
-		dest.identity();
-		
 		// 	   [ cos(a) -sin(a) 0 0 ]
 		// R = [ sin(a)  cos(a) 0 0 ]
 		//	   [   0        0   0 0 ]
@@ -170,9 +169,6 @@ public class Scene {
 	 */
 
 	public static Matrix4f scaleMatrix(float sx, float sy, Matrix4f dest) {
-		// clear the matrix to the identity matrix
-		dest.identity();
-		
 		//     [ sx 0 0 0 ]
 		// S = [ 0 sy 0 0 ]
 	    //     [ 0  0 0 0 ]
