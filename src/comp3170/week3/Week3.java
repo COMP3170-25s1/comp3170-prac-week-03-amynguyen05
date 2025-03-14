@@ -23,6 +23,8 @@ public class Week3 implements IWindowListener {
 	private int height = 800;
 	private Scene scene;
 	
+	private long oldTime;
+	
 	public Week3() throws OpenGLException  {
 		
 		// create window with title, size, and a listener (this)
@@ -44,11 +46,13 @@ public class Week3 implements IWindowListener {
 		// create the scene
 		scene = new Scene();
 		
+		oldTime = System.currentTimeMillis();
 	}
 
 
 	@Override
 	public void draw() {
+		update();
 
         // clear the colour buffer
 		glClear(GL_COLOR_BUFFER_BIT);	
@@ -63,6 +67,13 @@ public class Week3 implements IWindowListener {
 		this.height = height;
 		glViewport(0,0,width,height);
 		
+	}
+	
+	public void update() {
+		long time = System.currentTimeMillis();
+		float deltaTime = (time - oldTime) / 1000f;
+		oldTime = time;
+		scene.update(deltaTime);
 	}
 	
 	@Override

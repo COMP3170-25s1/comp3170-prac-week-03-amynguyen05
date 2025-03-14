@@ -1,5 +1,6 @@
 package comp3170.week3;
 
+import static comp3170.Math.TAU;
 import static org.lwjgl.opengl.GL11.GL_FILL;
 import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
@@ -33,6 +34,9 @@ public class Scene {
 	private Shader shader;
 	
 	private Matrix4f modelMatrix = new Matrix4f();
+	
+	final private float MOVEMENT_SPEED = 3f;
+	final private float ROTATION_RATE = TAU/15;
 
 	public Scene() {
 
@@ -81,16 +85,21 @@ public class Scene {
 
 		indexBuffer = GLBuffers.createIndexBuffer(indices);
 		
-//		Rotate the shape
-//		rotationMatrix((float)Math.toRadians(TAU/4), modelMatrix);
+//		b) Rotate the plane
+//		rotationMatrix(-TAU/4, modelMatrix);
 		
-		
+// 		c) Translate -> Scale the plane to the bottom right corner of the scene
 //		translationMatrix(0.5f, -0.5f, modelMatrix);
 //		scaleMatrix(0.5f, 0.5f, modelMatrix);
 		
-		translationMatrix(-0.7f, 0.7f, modelMatrix);
-		rotationMatrix(TAU/20, modelMatrix);
-		scaleMatrix(0.3f, 0.3f, modelMatrix);
+//		d) Translate -> Rotate -> Scale the plane pointing to the top left corner of the scene
+//		translationMatrix(-0.6f, 0.6f, modelMatrix);
+//		rotationMatrix(TAU/16, modelMatrix);
+//		scaleMatrix(0.4f, 0.4f, modelMatrix);
+		
+//		The starting point, angle and size of the flying plane
+		translationMatrix(0.7f, 0.0f, modelMatrix);
+		scaleMatrix(0.1f, 0.1f, modelMatrix);
 		
 	}
 
@@ -111,6 +120,14 @@ public class Scene {
 		glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
 
 	}
+	
+	public void update(float deltaTime) {
+		// Make the plane fly in circle
+		float movement = MOVEMENT_SPEED * deltaTime;
+		float rotation = ROTATION_RATE * deltaTime;
+		modelMatrix.translate(0.0f,movement,0.0f).rotateZ(rotation);
+	}
+
 
 	/**
 	 * Set the destination matrix to a translation matrix. Note the destination
