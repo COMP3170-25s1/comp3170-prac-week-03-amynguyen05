@@ -97,8 +97,10 @@ public class Plane {
 //		scaleMatrix(0.4f, 0.4f, modelMatrix);
 		
 //		The starting point, angle and size of the flying plane
-		translationMatrix(0.7f, 0.0f, modelMatrix);
-		scaleMatrix(0.1f, 0.1f, modelMatrix);
+//		translationMatrix(0.7f, 0.0f, modelMatrix);
+//		scaleMatrix(0.1f, 0.1f, modelMatrix);
+		modelMatrix.translate(0.7f,0.0f,0.0f);
+		modelMatrix.scale(0.1f,0.1f,0.0f);
 		
 	}
 
